@@ -1,23 +1,14 @@
 #ifndef REFEREE_H
 #define REFEREE_H
-#include <string>
+
+
+#include "Player.h"
 #include <iostream>
 
-#include "Human.h"
-#include "Computer.h"
-
-class Referee{
-    private:
-    int NumGames;
-    std::string winner;
-    std::string output;
-    
+class Referee : public Player{
     public:
-    Referee (int GamesNeededFor);
-    int GetNumGames();
-    void SetNumGames();
-    void play();
-    void results();
+    Referee();
+    Player* playGame(Player* player1, Player* player2);
 };
 
 #endif

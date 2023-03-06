@@ -1,25 +1,16 @@
 #ifndef HUMAN_H
 #define HUMAN_H
 
-#include "Referee.h"
-#include <string>
-#include <iostream>
-#include <stdlib.h>
+#include "Player.h"
 
-class Human{
-    private:
-    std::string HumanMove;
-    int NumGames;
 
+class Human : public Player{
+    
     public:
-    Human();
-    void setHumanMove();
-    std::string getHumanMove();
-
-    void setNumGames();
-    int getNumGames();
-
-
+    Human(); // default constructor
+    std::string name;
+    std::string getName();
+    char playerMove();
 };
 
 #endif

@@ -1,17 +1,15 @@
 #ifndef COMPUTER_H
 #define COMPUTER_H
 
-#include "Referee.h"
-#include <string>
-#include <iostream>
+#include "Player.h"
 
-class Computer{
-    private:
-    std::string ComputerMove;
-
+class Computer : public Player{
+    
+    
     public:
-    Computer(int games);
-    std::string getComputerMove();
+    Computer(); //default constructor
+    std::string getName();
+    char playerMove();
 };
 
 #endif

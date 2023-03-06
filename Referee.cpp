@@ -1,29 +1,34 @@
 #include "Referee.h"
 using namespace std;
 
-Referee::Referee (int GamesNeededFor){
-    NumGames = GamesNeededFor;
+//default constructor
+Referee::Referee(){
 }
 
-void Referee::play(){
-    for(int i=2; i < (2*NumGames+1); i+=2){
-        if (Human::HumanMove.at(i)=="R"){
-            output.at(i) = "Tie";
-            output.at(i+1) = " ";
-        }
-        if (Human::HumanMove.at(i) == "P"){
-            output.at(i) = "Win";
-            output.at(i+1) = " ";
-        }
-        if (Human::HumanMove.at(i) == "S"){
-            output.ai(i) = "Lose";
-            output.at(i+1) = " ";
+Player* Referee::playGame(Player* player1, Player* player2){
+    
+    //set a pointer to player
+    Player * winner;
+
+    std::string name = player1->playerName();
+    std::string computerName= player2->playerName();
+
+    char humanMove = player1->playerMove();
+    char computerMove = player2->playerMove();
+
+    for(int i=0; i<1; i++){
+        if(humanMove == computerMove){
+            return nullptr;
+        } else if (humanMove == 'P' && computerMove == 'R'){
+            winner = player1;
+            std::cout << name << "You win" << std::endl;
+        } else if (humanMove == 'S' && computerMove == 'R'){
+            winner = player2;
+            std::cout<< computerName << "You lost"<< std::endl;
         }
     }
+    return winner;
 }
 
-void Referee::results(){
-    for (int i=0; i <(2*NumGames-1); i++){
-        cout <<output.at(i)
-    }
-}
+
+
