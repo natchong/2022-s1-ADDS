@@ -1,4 +1,5 @@
 #include "Reverser.h"
+#include "Reverser.cpp"
 #include <iostream>
 using namespace std;
 
