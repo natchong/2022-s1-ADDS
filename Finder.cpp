@@ -14,10 +14,11 @@ vector<int> Finder::findSubstrings(string s1, string s2) {
             result.push_back(found);
             return result;
             } else {
-             result.push_back(-1);
+             break;
+            }
+            result.push_back(-1);
              result.push_back(-1);
              i++;
-            }
     }
                 return result;
 }
