@@ -1,22 +1,8 @@
 #include "Node.h"
 
-Node::Node(int temp) {
-    data=temp;
-    next=nullptr;
+Node::Node(int n_data, Node* n_link) {
+    data = n_data ;
+    link = n_link;
 }
 
-int Node::getData() {
-    return data;
-}
 
-void Node::setData(int newData) {
-    data=newData;
-}
-
-Node* Node::getNext() {
-    return next;
-}
-
-void Node::setNext(Node* n_next) {
-    next=n_next;
-}

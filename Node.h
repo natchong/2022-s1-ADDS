@@ -4,14 +4,12 @@ class Node {
 
     private:
     int data;
-    Node* next;
+    Node* link;
+    friend class LinkedList;
     
     public:
-    Node(int);
-    int getData();
-    void setData(int);
-    Node* getNext();
-    void setNext(Node*);
+    Node(){};
+    Node (int n_data, Node* n_link);
 
 
 };

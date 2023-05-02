@@ -8,13 +8,10 @@ class LinkedList {
     
     public:
     LinkedList();
+    int length;
     LinkedList(int* array, int len);
-    void insertFront(int newItem);
-    void insertEnd(int newItem);
     void insertPosition(int pos, int newNum);
     int search(int target);
-    void deleteFront();
-    void deleteEnd();
     bool deletePosition(int pos);
     int get(int pos);
     void printList();

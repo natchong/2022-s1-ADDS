@@ -6,167 +6,129 @@
 //default constructor
 LinkedList::LinkedList() {
     head=nullptr;
+    length = 0;
 }
 
 //C-array of len 
 LinkedList::LinkedList(int* array, int len) {
     head=nullptr;
-    for (int i=0;i<len;i++) {
-        insertEnd(array[i]);
-    }
-}
+    length = len - 1;
 
-//insert node to front of list
-void LinkedList::insertFront(int newNum) {
-    if (head==nullptr) {
-        head = new Node(newNum);
-    }
-    else {
-        Node* temp = new Node (newNum);
-        temp->setNext(head);
-        head=temp;
-    }
-}
-
-//insert node to end of list
-void LinkedList::insertEnd(int newNum) {
-    if (head==nullptr) {
-        head = new Node(newNum);
-    }
-    else {
-        Node* newNode= new Node(newNum);
-        Node* temp=head;
-        while(temp->getNext()!=nullptr) {
-            temp=temp->getNext();
-        }
-        temp->setNext(newNode);
+    for (int i=length ;i >= 0; i--) {
+        Node* newNode = new Node(array[i], head);
+        head = newNode;
     }
 }
 
 //insert a new node into specified pos
 void LinkedList::insertPosition(int pos, int newNum) {
-    if (pos<1) {
-        insertFront(newNum);
+    Node* newNode = new Node(newNum, nullptr); //a new node in a entered pos
+
+    //with a pos of 1 or less than 1, new node will be inserted at head
+    if (pos <= 1) {
+        newNode->link = head;
+        head = newNode;
+        length++;
+        return;
     }
-    else {
-        Node* temp=head;
-        int i=1;
-        while (temp->getNext()!=nullptr && i<pos-1) {
-            temp=temp->getNext();
-            i++;
+        Node* previous = head;
+        for(int i=1; i<pos-1 && previous->link != nullptr; i++){
+            previous = previous->link;
         }
-        if (temp->getNext()==nullptr) {
-            insertEnd(newNum);
+
+        if (previous->link == nullptr){
+            previous->link = newNode;
+            length++;
+            return;
         }
-        else {
-            Node* n_node=new Node(newNum);
-            n_node->setNext(temp->getNext());
-            temp->setNext(n_node);
-        }
-    }
+
+        newNode->link = previous->link;
+        previous->link = newNode;
+        length++;
 }
 
-//search for target and return position, not found return -1;
+
+//search for target and return position
 int LinkedList::search(int target) {
     int searchPosition=1;
-    Node* temp=head;
-    while (temp!=nullptr) {
-        if (temp->getData()==target) {
-            std::cout<<searchPosition<<" ";
+    Node* current = head;
+    while (current != nullptr) {
+        if (current->data == target) {
             return searchPosition;
         }
+        current = current->link;
         searchPosition++;
-        temp=temp->getNext();
     }
-    std::cout<<"-1";
+    
+    //return -1 if not found
     return -1;
-}
-
-//deleted the first index of list
-void LinkedList::deleteFront() {
-    if (head!=nullptr) {
-        Node* temp=head;
-        head=head->getNext();
-        delete temp;
-    }
-}
-
-//delete last element of list
-void LinkedList::deleteEnd() {
-    if (head!=nullptr) {
-        Node* before=head,*current=head;
-        while (current->getNext()!=nullptr) {
-            before=current;
-            current=current->getNext();
-        }
-        before->setNext(nullptr);
-        delete current;
-    }
 }
 
 //returns false if have not delete the element, return true otherwise
 bool LinkedList::deletePosition(int pos) {
-    if (pos <= 0 || head == nullptr){
+
+    //if pos out of bounds, return false
+    if (pos > length || pos < 1){
         return false;
-    } else if (pos ==1){
-        Node* temp = head;
-        head = head->getNext();
-        delete temp;
-        return true;
-    } else {
-        Node* previous = head;
-        for (int i=1; i<pos-1 && previous->getNext() != nullptr; i++){
-            previous = previous->getNext();
-        }
-        if (previous->getNext() == nullptr){
-            return false;
-        } else {
-            Node* temp = previous->getNext();
-            previous->setNext(temp->getNext());
-            delete temp;
-            return true;
-        }
     }
+
+    //find node
+    Node* previous = head;
+    for(int i=1; i<pos-1 && previous->link != nullptr; i++){
+        previous = previous->link;
+    }
+
+    //set node as target so can be deleted
+    Node* targetNode = previous->link;
+    previous->link = targetNode->link;
+
+    //delete node and return true
+    delete targetNode;
+    return true;
+      
 }
 
 //get the position of the specified number and return
 int LinkedList::get(int pos) {
-    int i=1;
-    Node* temp=head;
-    while (temp!=nullptr && i<pos) {
-        temp=temp->getNext();
-        i++;
+
+    //pos out of bounds, return std::numeric limits...
+    if(pos > length || pos < 1){
+        return std::numeric_limits < int >::max();
     }
-    if (temp==nullptr) {
-        std::cout<<std::numeric_limits<int>::max()<<" ";
-        return std::numeric_limits<int>::max();
+
+    Node* targetNode = head;
+    for(int i=1; i < pos && targetNode->link != nullptr; i++){
+        targetNode = targetNode->link;
     }
-    else {
-        std::cout<<temp->getData()<<" ";
-        return temp->getData();
-    }
+
+    //return the pos of node
+    return targetNode->data;
 }
 
 //print the list of data
 void LinkedList::printList() {
-    if (head!=nullptr) {
-        Node* temp=head;
-        while (temp!=nullptr) {
-            std::cout<<temp->getData()<<" ";
-            temp=temp->getNext();
+    Node* current = head;
+
+    if (current==nullptr) {
+        return;
+    } 
+    std::cout << "[";
+
+    while (current != nullptr){
+        std::cout << current->data;
+        current = current->link;
+        if(current != nullptr){
+            std::cout << " ";
         }
     }
+    std::cout <<"]" << std::endl;
 }
 
 //destructor
 LinkedList::~LinkedList() {
     if (head!=nullptr) {
         Node* temp = head;
-        Node* next= head;
-        while (temp!= nullptr) {
-            next=temp->getNext();
-            delete temp;
-            temp=next;
-        }
+        head = head->link;
+        delete temp;
     }
 }
