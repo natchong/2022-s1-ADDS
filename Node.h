@@ -5,7 +5,7 @@ class Node {
     private:
     int data;
     Node* link;
-    friend class LinkedList;
+    friend class LinkedList; //makes both private and public classes of LinkedList available
     
     public:
     Node(){};

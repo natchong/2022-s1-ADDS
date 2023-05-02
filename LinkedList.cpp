@@ -114,6 +114,7 @@ void LinkedList::printList() {
     } 
     std::cout << "[";
 
+    //prints the list
     while (current != nullptr){
         std::cout << current->data;
         current = current->link;
