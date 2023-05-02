@@ -9,8 +9,8 @@ int Node::getData() {
     return data;
 }
 
-void Node::setData(int n_data) {
-    data=n_data;
+void Node::setData(int newData) {
+    data=newData;
 }
 
 Node* Node::getNext() {

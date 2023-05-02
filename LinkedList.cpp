@@ -3,10 +3,12 @@
 #include <limits>
 #include <iostream>
 
+//default constructor
 LinkedList::LinkedList() {
     head=nullptr;
 }
 
+//C-array of len 
 LinkedList::LinkedList(int* array, int len) {
     head=nullptr;
     for (int i=0;i<len;i++) {
@@ -14,7 +16,7 @@ LinkedList::LinkedList(int* array, int len) {
     }
 }
 
-//add new node to front of list
+//insert node to front of list
 void LinkedList::insertFront(int newNum) {
     if (head==nullptr) {
         head = new Node(newNum);
@@ -26,7 +28,7 @@ void LinkedList::insertFront(int newNum) {
     }
 }
 
-//add new node to end of the list
+//insert node to end of list
 void LinkedList::insertEnd(int newNum) {
     if (head==nullptr) {
         head = new Node(newNum);
@@ -41,7 +43,7 @@ void LinkedList::insertEnd(int newNum) {
     }
 }
 
-//add new node to specified position
+//insert a new node into specified pos
 void LinkedList::insertPosition(int pos, int newNum) {
     if (pos<1) {
         insertFront(newNum);
@@ -64,7 +66,7 @@ void LinkedList::insertPosition(int pos, int newNum) {
     }
 }
 
-//searches for item and reutrn position, if not found, print and return 0;
+//search for target and return position, not found return -1;
 int LinkedList::search(int target) {
     int searchPosition=1;
     Node* temp=head;
@@ -80,7 +82,7 @@ int LinkedList::search(int target) {
     return -1;
 }
 
-//delete first element of list
+//deleted the first index of list
 void LinkedList::deleteFront() {
     if (head!=nullptr) {
         Node* temp=head;
@@ -102,7 +104,7 @@ void LinkedList::deleteEnd() {
     }
 }
 
-//delete element at specified position of list
+//returns false if have not delete the element, return true otherwise
 bool LinkedList::deletePosition(int pos) {
     if (pos <= 0 || head == nullptr){
         return false;
@@ -127,7 +129,7 @@ bool LinkedList::deletePosition(int pos) {
     }
 }
 
-//get value of item at specified position
+//get the position of the specified number and return
 int LinkedList::get(int pos) {
     int i=1;
     Node* temp=head;
@@ -145,7 +147,7 @@ int LinkedList::get(int pos) {
     }
 }
 
-//print items
+//print the list of data
 void LinkedList::printList() {
     if (head!=nullptr) {
         Node* temp=head;
@@ -156,6 +158,7 @@ void LinkedList::printList() {
     }
 }
 
+//destructor
 LinkedList::~LinkedList() {
     if (head!=nullptr) {
         Node* temp = head;
