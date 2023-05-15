@@ -1,4 +1,4 @@
-#include "autocomplete.h"
+#include "Autocomplete.h"
 
 void Autocomplete::insert_word(TrieNode* node, string& word) {
     for (char c : word) {
